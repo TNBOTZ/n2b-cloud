@@ -12,18 +12,23 @@ function showTab(tabId) {
 }
 
 async function uploadVideo() {
-    const fileInput = document.getElementById('videoInput');
-    const statusMessage = document.getElementById('statusMessage');
-    const uploadBtn = document.getElementById('uploadBtn');
+    const file = document.getElementById('videoInput').files[0];
+    const formData = new FormData();
+    formData.append('video', file);
 
-    if (fileInput.files.length === 0) return alert("Select a video!");
-    
-    const file = fileInput.files[0];
+    const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+    });
 
-    // STRICT 20MB LIMIT FOR GETTING PLAYABLE LINKS via getFile
-    if (file.size > 20 * 1024 * 1024) {
-        return alert("File must be under 20MB to generate a streamable link.");
+    const data = await response.json();
+    if (data.success) {
+        const uniqueLink = `${window.location.origin}/watch/${data.file_id}`;
+        addToHistory(data.file_name, uniqueLink);
+        alert("Upload Complete! Your link: " + uniqueLink);
     }
+}
+
 
     uploadBtn.disabled = true;
     statusMessage.textContent = "Step 1: Uploading to Telegram...";
