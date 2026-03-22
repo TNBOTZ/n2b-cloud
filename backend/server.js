@@ -9,8 +9,8 @@ app.use(cors());
 
 const upload = multer();
 
-const BOT_TOKEN = "YOUR_BOT_TOKEN";
-const CHAT_ID = "YOUR_CHANNEL_ID";
+const BOT_TOKEN = "8703476678:AAGosSnHf5Tg6voJtgvjcmjdCP_vhB284OY";
+const CHAT_ID = "-1003882073026";
 
 // 📤 Upload to Telegram
 app.post("/upload", upload.single("file"), async (req, res) => {
