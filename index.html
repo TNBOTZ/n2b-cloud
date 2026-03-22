@@ -1,84 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>TNWEEBZ STORAGE</title>
-
-<link rel="stylesheet" href="css/style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Video Platform</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body onload="checkUser()">
+    <div class="app-container">
+        <div class="nav">
+            <button onclick="showTab('uploadTab')">Upload</button>
+            <button onclick="showTab('historyTab')">History & Search</button>
+        </div>
 
-<nav>🔥 TNWEEBZ STORAGE</nav>
+        <div id="uploadTab" class="tab-content active">
+            <h2>Upload Video</h2>
+            <p class="warning">Max size for playable links: 20MB</p>
+            <input type="file" id="videoInput" accept="video/*">
+            <button id="uploadBtn" onclick="uploadVideo()">Upload & Generate Link</button>
+            <p id="statusMessage"></p>
+        </div>
 
-<div class="container">
+        <div id="historyTab" class="tab-content">
+            <h2>Your Videos</h2>
+            <input type="text" id="searchInput" placeholder="Search videos..." onkeyup="searchVideos()">
+            <ul id="historyList"></ul>
+        </div>
 
-<!-- LOGIN -->
-<div class="card" id="loginCard">
-  <h3>Login / Signup</h3>
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <button onclick="signup()">Signup</button>
-</div>
+        <div id="playerTab" class="tab-content">
+            <h2>Video Player</h2>
+            <video id="videoPlayer" controls width="100%"></video>
+            <p id="shareableLink"></p>
+        </div>
+    </div>
 
-<!-- UPLOAD -->
-<div class="card" id="uploadCard" style="display:none;">
-  <h3>Upload File</h3>
-  <input type="file" id="fileInput">
-  <button onclick="upload()">Upload</button>
-</div>
-
-<!-- SEARCH -->
-<div class="card" id="searchCard" style="display:none;">
-  <h3>Search</h3>
-  <input id="search" placeholder="Search file...">
-  <button onclick="searchFile()">Search</button>
-</div>
-
-<!-- HISTORY -->
-<div class="card" id="historyCard" style="display:none;">
-  <h3>Your Files</h3>
-  <div id="fileList"></div>
-</div>
-
-<!-- ADMIN -->
-<div class="card" id="adminPanel" style="display:none;">
-  <h3>Admin Dashboard 👑</h3>
-  <p>Total Users: <span id="usersCount"></span></p>
-  <p>Total Files: <span id="filesCount"></span></p>
-</div>
-
-<!-- ACTION BUTTONS -->
-<div class="card" style="display:none;" id="actionCard">
-  <button onclick="buyPro()">Upgrade to Pro 🚀</button>
-  <button onclick="logout()">Logout</button>
-</div>
-
-</div>
-
-<!-- JS FILES -->
-<script src="js/supabase.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/upload.js"></script>
-<script src="js/files.js"></script>
-<script src="js/admin.js"></script>
-<script src="js/payment.js"></script>
-
-<script>
-async function checkUser() {
-  const { data } = await supabaseClient.auth.getUser();
-
-  if (!data.user) {
-    window.location.href = "login.html";
-  } else {
-    showUserUI(data.user.id);
-  }
-}
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
