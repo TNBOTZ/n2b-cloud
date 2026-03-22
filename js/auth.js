@@ -1,27 +1,6 @@
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
-// SIGNUP
-async function signup() {
-  const email = emailInput.value;
-  const password = passwordInput.value;
-
-  const { data, error } = await supabaseClient.auth.signUp({
-    email,
-    password
-  });
-
-  if (error) return alert(error.message);
-
-  // Insert user into DB
-  await supabaseClient.from("users").insert({
-    id: data.user.id,
-    email: email
-  });
-
-  alert("Signup successful! Please login.");
-}
-
 // LOGIN
 async function login() {
   const { data, error } = await supabaseClient.auth.signInWithPassword({
@@ -31,7 +10,25 @@ async function login() {
 
   if (error) return alert(error.message);
 
-  showUserUI(data.user.id);
+  window.location.href = "index.html";
+}
+
+// SIGNUP
+async function signup() {
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: emailInput.value,
+    password: passwordInput.value
+  });
+
+  if (error) return alert(error.message);
+
+  await supabaseClient.from("users").insert({
+    id: data.user.id,
+    email: emailInput.value
+  });
+
+  alert("Account created!");
+  window.location.href = "login.html";
 }
 
 // LOGOUT
