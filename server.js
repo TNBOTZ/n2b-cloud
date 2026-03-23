@@ -10,8 +10,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // --- CONFIGURATION ---
-const BOT_TOKEN = 'YOUR_NEW_BOT_TOKEN';
-const CHAT_ID = 'YOUR_CHAT_ID';
+const BOT_TOKEN = '8703476678:AAHza1f1iGvykTF7YZBLtE62R3YVxoouVNI';
+const CHAT_ID = '-1003882073026';
 // IMPORTANT: Use http://localhost:8081 for 2GB (Local Bot API Server)
 const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}`; 
 
