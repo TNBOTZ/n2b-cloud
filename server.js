@@ -79,3 +79,14 @@ app.post('/api/upload', upload.single('video'), async (req, res) => {
 });
 
 app.listen(3000, () => console.log("Server running on port 3000"));
+
+// ... inside your app.get('/stream/:file_id') ...
+
+const head = {
+    'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+    'Accept-Ranges': 'bytes',
+    'Content-Length': chunksize,
+    'Content-Type': 'video/mp4',
+    // ADD THIS LINE to allow the browser to suggest a filename during download
+    'Content-Disposition': 'attachment; filename="video.mp4"' 
+};
