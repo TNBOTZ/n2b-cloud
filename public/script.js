@@ -1,9 +1,4 @@
-// Check if user is logged in
-let user = JSON.parse(sessionStorage.getItem('userData'));
 
-if (!user && !window.location.pathname.includes('login.html')) {
-    window.location.href = 'login.html';
-}
 
 // --- UPLOAD FUNCTION ---
 async function uploadVideo() {
